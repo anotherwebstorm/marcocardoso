@@ -1,6 +1,6 @@
 /**
  * @description
- * A file where all the necessary setup is setted for the FRONTEND
+ * Contains all the necessary route setup for the FRONTEND
  */
 
 /**

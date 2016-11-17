@@ -23,6 +23,10 @@ import sassLint from "gulp-sass-lint";
  */
 const reload = browserSync.reload;
 const syncGulp = gulpsync(gulp);
+const emitError = (err) => {
+	gutil.log(err);
+	this.emit('end');
+};
 
 /**
  * @description
@@ -30,10 +34,7 @@ const syncGulp = gulpsync(gulp);
  */
 gulp.task('images', () => {
 	return gulp.src(`${fesetup.IMG_DIR}/**/**`)
-		.on('error', function (err) {
-			gutil.log(err);
-			this.emit('end');
-		})
+		.on('error', emitError)
 		.pipe(imagemin())
 		.pipe(gulp.dest(`${fesetup.THEME_FE_DIR}/img`));
 });
@@ -44,10 +45,7 @@ gulp.task('images', () => {
  */
 gulp.task('fonts', () => {
 	return gulp.src(`${fesetup.FONTS_DIR}/**/**`)
-		.on('error', function (err) {
-			gutil.log(err);
-			this.emit('end');
-		})
+		.on('error', emitError)
 		.pipe(gulp.dest(`${fesetup.THEME_FE_DIR}/fonts`));
 });
 
@@ -66,10 +64,7 @@ gulp.task('styles', () => {
 				'./node_modules/bourbon/app/assets/stylesheets/',
 			],
 		}))
-		.on('error', function (err) {
-			gutil.log(err);
-			this.emit('end');
-		})
+		.on('error', emitError)
 		.pipe(concat('styles.css'))
 		.pipe(gulp.dest(fesetup.THEME_FE_DIR));
 });
