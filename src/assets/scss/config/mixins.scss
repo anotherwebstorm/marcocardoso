@@ -1,0 +1,55 @@
+/*------------------------------------*\
+MIXINS
+/*------------------------------------*/
+
+/**
+ * Mixin to apply to desktop only
+ */
+@mixin apply-to-desktop {
+	html {
+		[data-devicetype='desktop'] & {
+			@content;
+		}
+	}
+}
+
+/**
+ * Mixin to apply to mobile only
+ */
+@mixin apply-to-mobile {
+	html {
+		&[data-devicetype='mobile'] & {
+			@content;
+		}
+	}
+}
+
+/**
+ * mixin that will loop through the screen-sizes map. at each point you select if the media query should start from
+ * there or it should end there with the arguments max and min refuring to max-width = screen size or min-width = screen size
+ */
+$screen-sizes: (
+	xs: 	320px,
+	s: 		414px,
+	sm: 	768px,
+	md: 	1024px,
+	lg: 	1200px,
+	xl: 	1400px
+);
+
+@mixin respond($media, $range) {
+	@if $range == min {
+		@media only screen and (min-width: (map-get($screen-sizes, $media))) {
+			@content;
+		}
+	} @else if($range == max) {
+		@media only screen and (max-width: (map-get($screen-sizes, $media))) {
+			@content;
+		}
+	} @else if($range == equal) {
+		@media only screen and (width: (map-get($screen-sizes, $media))) {
+			@content;
+		}
+	}
+}
+

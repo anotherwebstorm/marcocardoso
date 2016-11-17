@@ -1,0 +1,18 @@
+options:
+  formatter: stylish
+files:
+	include: '**/*.s+(a|c)ss'
+rules:
+	# Disallows
+  no-ids: 2
+  no-important: 1
+  no-css-comments: 0
+  no-vendor-prefixes: 0
+
+  # Style Guide
+  empty-args: 0
+  pseudo-element: 0
+  indentation:
+    - 2
+    -
+      size: tab
