@@ -2,157 +2,79 @@
  * @description
  * Imports
  */
-import * as fesetup from "./fesetup.babel";
-import webpackconf from "./webpack.config.babel";
-
 import gulp from "gulp";
 import gulpsync from "gulp-sync";
 import sass from "gulp-sass";
 import sassGlob from "gulp-sass-glob";
 import concat from "gulp-concat";
 import gutil from"gulp-util";
-import webpack from "webpack";
-import phpconnect from "gulp-connect-php";
-import browserSync from "browser-sync";
-import imagemin from "gulp-imagemin";
-import sassLint from "gulp-sass-lint";
+import del from 'del';
+import * as paths from './paths.babel';
 
 /**
  * @description
  * Slight Plugin(s) Configuration / Instance Initialization
  */
-const reload = browserSync.reload;
 const syncGulp = gulpsync(gulp);
 const emitError = (err) => {
 	gutil.log(err);
 	this.emit('end');
 };
+const sassOptions = {
+	errLogToConsole: true,
+	includePaths: [
+		'./node_modules/normalize-scss/sass/',
+		'./node_modules/bourbon/app/assets/stylesheets/'
+	]
+};
 
 /**
  * @description
- * [IMAGES TASK] - Compresses with imagemin / copies all the images to the dist folder
+ * [DEL ASSETS] Deletes all the assets folder
  */
-gulp.task('images', () => {
-	return gulp.src(`${fesetup.IMG_DIR}/**/**`)
-		.on('error', emitError)
-		.pipe(imagemin())
-		.pipe(gulp.dest(`${fesetup.THEME_FE_DIR}/img`));
+gulp.task('del-assets', () => {
+	return del([
+		`${paths.DIST_ASSETS_DIR}/css`,
+		`${paths.DIST_ASSETS_DIR}/fonts`,
+		`${paths.DIST_ASSETS_DIR}/img`,
+		`${paths.DIST_ASSETS_DIR}/views`
+	]);
 });
 
 /**
  * @description
- * [FONTS TASK] - Compiles / copies all the fonts to the dist folder
- */
-gulp.task('fonts', () => {
-	return gulp.src(`${fesetup.FONTS_DIR}/**/**`)
-		.on('error', emitError)
-		.pipe(gulp.dest(`${fesetup.THEME_FE_DIR}/fonts`));
-});
-
-/**
- * @description
- * [STYLES TASK] - Compiles all the scss into css
+ * [STYLES TASK] - Compiles all the scss into the dist assets folder
  */
 gulp.task('styles', () => {
-	return gulp.src(`${fesetup.SCSS_DIR}/app.scss`)
+	gulp.src(`${paths.SCSS_SRC_DIR}/app.scss`)
 		.pipe(sassGlob())
-		.pipe(sass.sync({
-			outputStyle: 'compressed',
-			errLogToConsole: true,
-			includePaths: [
-				'./node_modules/normalize-scss/sass/',
-				'./node_modules/bourbon/app/assets/stylesheets/',
-			],
-		}))
+		.pipe(sass.sync(Object.assign({
+			outputStyle: 'expanded'
+		}, sassOptions)))
 		.on('error', emitError)
 		.pipe(concat('styles.css'))
-		.pipe(gulp.dest(fesetup.THEME_FE_DIR));
-});
-
-/**
- * @description
- * [STYLES LINT TASK] - Checks if your sass/scss files are ok.
- */
-gulp.task('styles-lint', () => {
-	return gulp.src(`${fesetup.SCSS_DIR}/**/*.scss`)
-		.pipe(sassLint({
-			configFile: './.sass-lint.yml',
-			cacheConfig: true,
-		}))
-		.pipe(sassLint.format())
-		.pipe(sassLint.failOnError());
+		.pipe(gulp.dest(`${paths.DIST_ASSETS_DIR}/css`));
 });
 
 
 /**
  * @description
- * [SCRIPTS TASK] - Compiles all the JS along with webpack
- * {watch} - make sure to keep webpack alive even if there's a warning/error
+ * [SERVER VIEWS] - generate all server views to the dist folder
  */
-gulp.task('scripts', () => {
-	webpack(webpackconf, (err, stats) => {
-		if (err) throw new gutil.PluginError('webpack', err);
-		gutil.log('[webpack]', stats.toString({
-			colors: true,
-		}));
-
-		/** reload browser */
-		reload();
-	});
+gulp.task('server-views', () => {
+	return gulp.src(`${paths.VIEWS_SRC_DIR}/**/**`)
+		.on('error', emitError)
+		.pipe(gulp.dest(`${paths.DIST_ASSETS_DIR}/views`))
 });
 
 /**
  * @description
- * [PHP SERVER] - starts up a php server with the dist folder as public
- *
- * {base} - the public folder where the php will look into
- * {hostname} - our localhost ip
- * {port} - the needed port
- * {keepalive} - keep the server alive
- * {stdio} - make sure we ignore all the server logs when working with the terminal
+ * [BUILD ASSETS] - builds all assets required
  */
-gulp.task('phpserver', function() {
-	phpconnect.server({
-		base: fesetup.HTML_DIR,
-		hostname: '127.0.0.1',
-		port: 8010,
-		keepalive: true,
-		stdio: 'ignore',
-	});
-});
+gulp.task('build-assets', syncGulp.sync([
+	'del-assets',
+	'server-views',
+	'styles'
+]));
 
-/**
- * @description
- * [BROWSER SYNC] - starts up a browser sync environment by creating a proxy of our php server
- * {proxy} - the php server ip/port we just setted up on the phpserver task
- * {port} - the browsersync port
- * {open} - either open or not a browser window
- * {notify} - dont log certain shizzle
- * {ui} - no need to create browsersync ui
- */
-gulp.task('browser-sync', ['phpserver'], () => {
-	browserSync({
-		proxy: '127.0.0.1:8010',
-		port: 8080,
-		open: false,
-		notify: false,
-		ui: false,
-	});
-});
 
-/**
- * @description
- * [START DEV] - starts up a gulp task for dev environment
- */
-gulp.task('start-dev', syncGulp.sync([
-	'styles-lint',
-	'styles',
-	'fonts',
-	'images',
-	'scripts',
-	'browser-sync',
-]), () => {
-	/** watching the main required files for changes */
-	gulp.watch(`${fesetup.SCSS_DIR}/**/*.scss`, ['styles-lint', 'styles']).on('change', reload);
-	gulp.watch(`${fesetup.THEME_DIR}/**/*.php`).on('change', reload);
-});
