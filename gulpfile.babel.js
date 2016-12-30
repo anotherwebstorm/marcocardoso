@@ -6,6 +6,7 @@ import gulp from 'gulp';
 import gulpsync from 'gulp-sync';
 import sass from 'gulp-sass';
 import sassGlob from 'gulp-sass-glob';
+import sassLint from 'gulp-sass-lint';
 import concat from 'gulp-concat';
 import gutil from 'gulp-util';
 import del from 'del';
@@ -43,6 +44,20 @@ gulp.task('del-assets', () => {
 
 /**
  * @description
+ * [STYLES LINT TASK] - Checks if your sass/scss files are ok.
+ */
+gulp.task('styles-lint', () => {
+	gulp.src(`${paths.SCSS_SRC_DIR}/**/*.scss`)
+		.pipe(sassLint({
+			configFile: './.sass-lint.yml',
+			cacheConfig: true,
+		}))
+		.pipe(sassLint.format())
+		.pipe(sassLint.failOnError());
+});
+
+/**
+ * @description
  * [STYLES TASK] - Compiles all the scss into the dist assets folder
  */
 gulp.task('styles', () => {
@@ -76,3 +91,11 @@ gulp.task('build-assets', syncGulp.sync([
 	'server-views',
 	'styles'
 ]));
+
+/**
+ * @description
+ * [WATCH ASSETS] - watches all assets required
+ */
+gulp.task('watch-assets', () => {
+	gulp.watch(`${paths.SCSS_SRC_DIR}/**/*.scss`, ['styles-lint', 'styles']);
+});
