@@ -1,0 +1,72 @@
+{
+	"parser": "babel-eslint",
+	"extends": "airbnb",
+	"env": {
+		"es6": true,
+		"browser": true
+	},
+	"plugins": [
+		"react"
+	],
+	"rules": {
+		"no-tabs": 0,
+		"no-console": 0,
+		"no-new": 0,
+		"no-alert": 0,
+		"prefer-const": [1, {
+			"destructuring": "any",
+			"ignoreReadBeforeAssign": false
+		}],
+		"import/no-extraneous-dependencies": [0, {
+			"devDependencies": true,
+			"optionalDependencies": false
+		}],
+		"import/prefer-default-export": 0,
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+		"react/jsx-indent": [2, "tab"],
+		"react/prefer-stateless-function": 0,
+		"indent": [2, "tab", {
+			"SwitchCase": 1
+		}],
+		"require-jsdoc": ["error", {
+			"require": {
+				"FunctionDeclaration": true,
+				"MethodDefinition": true,
+				"ClassDeclaration": true
+			}
+		}],
+		"valid-jsdoc": ["error", {
+			"requireReturn": false,
+			"requireReturnType": false,
+			"requireParamDescription": false,
+			"requireReturnDescription": false,
+			"prefer": {
+				"return": "return"
+			}
+		}],
+		"brace-style" : 0,
+		"no-restricted-syntax" : 0,
+		"comma-dangle": 0
+	},
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true,
+			"blockBindings": true
+		}
+	},
+	"globals": {
+		"window": true,
+		"document": true,
+		"setTimeout": true,
+		"location": true,
+		"devToolsExtension": true,
+		"module": true,
+		"require": true,
+		"console": true,
+		"exports": true,
+		"process": true,
+		"__dirname": true,
+		"fs": true
+	}
+}

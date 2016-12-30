@@ -3,7 +3,7 @@ import {WebController} from "./controllers/WebController";
 import {ErrorController} from "./controllers/ErrorController";
 
 let server = new Express();
-const port = 3000;
+const port = 3001;
 
 server.use(Express.static('dist/assets'));
 

@@ -2,12 +2,12 @@
  * @description
  * Imports
  */
-import gulp from "gulp";
-import gulpsync from "gulp-sync";
-import sass from "gulp-sass";
-import sassGlob from "gulp-sass-glob";
-import concat from "gulp-concat";
-import gutil from"gulp-util";
+import gulp from 'gulp';
+import gulpsync from 'gulp-sync';
+import sass from 'gulp-sass';
+import sassGlob from 'gulp-sass-glob';
+import concat from 'gulp-concat';
+import gutil from 'gulp-util';
 import del from 'del';
 import * as paths from './paths.babel';
 
@@ -33,7 +33,7 @@ const sassOptions = {
  * [DEL ASSETS] Deletes all the assets folder
  */
 gulp.task('del-assets', () => {
-	return del([
+	del([
 		`${paths.DIST_ASSETS_DIR}/css`,
 		`${paths.DIST_ASSETS_DIR}/fonts`,
 		`${paths.DIST_ASSETS_DIR}/img`,
@@ -62,9 +62,9 @@ gulp.task('styles', () => {
  * [SERVER VIEWS] - generate all server views to the dist folder
  */
 gulp.task('server-views', () => {
-	return gulp.src(`${paths.VIEWS_SRC_DIR}/**/**`)
+	gulp.src(`${paths.VIEWS_SRC_DIR}/**/**`)
 		.on('error', emitError)
-		.pipe(gulp.dest(`${paths.DIST_ASSETS_DIR}/views`))
+		.pipe(gulp.dest(`${paths.DIST_ASSETS_DIR}/views`));
 });
 
 /**
@@ -76,5 +76,3 @@ gulp.task('build-assets', syncGulp.sync([
 	'server-views',
 	'styles'
 ]));
-
-

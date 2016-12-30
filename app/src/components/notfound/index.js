@@ -1,8 +1,25 @@
-import React, {Component} from "react";
-import {Link} from "react-router";
+import React from 'react';
+import { Link } from 'react-router';
 
-export default class NotFound extends Component {
-	render () {
+/**
+ * @class NotFound
+ *
+ * @description
+ * Class for NotFound.
+ *
+ * @example
+ * <NotFound />
+ */
+class NotFound extends React.Component {
+
+	/**
+	 * @description
+	 * Component Method
+	 * Renders a component
+	 *
+	 * @returns {XML} component
+	 */
+	render() {
 		return (
 			<section>
 				<h1>404</h1>
@@ -12,4 +29,7 @@ export default class NotFound extends Component {
 			</section>
 		);
 	}
+
 }
+
+export default NotFound;

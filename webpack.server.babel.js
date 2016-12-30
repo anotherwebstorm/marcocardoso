@@ -37,6 +37,13 @@ module.exports = {
 	 * Module loaders and preloaders
 	 */
 	module: {
+		preloaders: [
+			{
+				test: paths.APP_SRC_DIR,
+				exclude: /node_modules/,
+				loader: 'eslint-loader'
+			}
+		],
 		loaders: [
 			{
 				test: paths.APP_SRC_DIR,
@@ -55,6 +62,14 @@ module.exports = {
 	 */
 	target: 'node',
 	externals: nodeModules,
+
+	/**
+	 * @description
+	 * eslint configuration path
+	 */
+	eslint: {
+		configFile: './.eslintrc'
+	},
 
 	/**
 	 * @description

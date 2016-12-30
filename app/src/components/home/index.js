@@ -1,11 +1,27 @@
 import React from 'react';
 
+/**
+ * @class Layout
+ *
+ * @description
+ * Class for Layout.
+ *
+ * @example
+ * <Layout />
+ */
 class Layout extends React.Component {
 
 	handleClick() {
 		alert('You clicked!');
 	}
 
+	/**
+	 * @description
+	 * Component Method
+	 * Renders a component
+	 *
+	 * @returns {XML} component
+	 */
 	render() {
 		return (
 			<section>

@@ -1,14 +1,18 @@
-import {useRouterHistory, RouterContext, match} from "react-router";
-import {createMemoryHistory} from "history";
-import ReactDOMServer from "react-dom/server";
-import React from "react";
-import routes from "../../src/routes";
+import { useRouterHistory, RouterContext, match } from 'react-router';
+import { createMemoryHistory } from 'history';
+import ReactDOMServer from 'react-dom/server';
+import React from 'react';
+import routes from '../../src/routes';
 
-let styleSrc = "css/styles.css";
-let scriptSrc = [
-	"js/scripts.js"
+const styleSrc = 'css/styles.css';
+const scriptSrc = [
+	'js/scripts.js'
 ];
 
+/**
+ * @description
+ * WebController Class
+ */
 export class WebController {
 
 	/**
@@ -17,12 +21,10 @@ export class WebController {
 	 * requested and send the correctly rendered page
 	 *
 	 * @public
-	 * @param req
-	 * @param res
-	 * @param next
+	 * @param {object} req
+	 * @param {object} res
 	 */
-	webAction(req, res, next) {
-
+	webAction(req, res) {
 		let history = useRouterHistory(createMemoryHistory)();
 
 		match({
@@ -36,19 +38,25 @@ export class WebController {
 				res.redirect(302, redirectLocation.pathname + redirectLocation.search);
 			}
 			else if (renderProps) {
-				let htmlBody = WebController.buildHtmlBody(renderProps);
-				res.render("index", {htmlBody, scriptSrc, styleSrc});
+				const htmlBody = WebController.buildHtmlBody(renderProps);
+				res.render('index', { htmlBody, scriptSrc, styleSrc });
 			}
 			else {
 				res.status(404).send('Not found at all');
 			}
-		})
+		});
 	}
 
-	static buildHtmlBody (renderProps) {
+	/**
+	 *
+	 * @param {object} renderProps
+	 * @return {*}
+	 */
+	static buildHtmlBody(renderProps) {
 		return ReactDOMServer.renderToString(
 			<RouterContext {...renderProps} />
 		);
 	}
 
 }
+
