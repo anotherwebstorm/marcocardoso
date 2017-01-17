@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 
-import AppLayout from '../components';
+import Layout from '../components';
 import Home from '../components/home';
 import NotFound from '../components/notfound';
 
@@ -16,7 +16,7 @@ import NotFound from '../components/notfound';
 export default function routes(history) {
 	return (
 		<Router history={history}>
-			<Route path="/" component={AppLayout}>
+			<Route path="/" component={Layout}>
 				<Route path="404" component={NotFound} />
 				<Route path="**" component={NotFound} />
 				<IndexRoute component={Home} />

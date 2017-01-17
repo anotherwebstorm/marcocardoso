@@ -1,15 +1,17 @@
 import React from 'react';
+import Aside from './shared/aside';
+import Footer from './shared/footer';
 
 /**
- * @class AppLayout
+ * @class Layout
  *
  * @description
- * Class for AppLayout.
+ * Class for Layout.
  *
  * @example
- * <AppLayout />
+ * <Layout />
  */
-class AppLayout extends React.Component {
+class Layout extends React.Component {
 
 	/**
 	 * @description
@@ -20,12 +22,16 @@ class AppLayout extends React.Component {
 	 */
 	render() {
 		return (
-			<div className="app__wrapper-content">
-				{this.props.children}
+			<div className="app__layout">
+				<Aside />
+				<section className="app__layout-content">
+					{this.props.children}
+				</section>
+				<Footer />
 			</div>
 		);
 	}
 
 }
 
-export default AppLayout;
+export default Layout;

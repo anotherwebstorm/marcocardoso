@@ -1,19 +1,16 @@
 import React from 'react';
+import Article from '../shared/article';
 
 /**
- * @class Layout
+ * @class Home
  *
  * @description
- * Class for Layout.
+ * Class for Home.
  *
  * @example
- * <Layout />
+ * <Home />
  */
-class Layout extends React.Component {
-
-	handleClick() {
-		alert('You clicked uhrraay!');
-	}
+class Home extends React.Component {
 
 	/**
 	 * @description
@@ -24,14 +21,10 @@ class Layout extends React.Component {
 	 */
 	render() {
 		return (
-			<section>
-				<h1>welcome</h1>
-				<p>Lets do it</p>
-				<button onClick={this.handleClick}>Click Me</button>
-			</section>
+			<Article />
 		);
 	}
 
 }
 
-export default Layout;
+export default Home;
