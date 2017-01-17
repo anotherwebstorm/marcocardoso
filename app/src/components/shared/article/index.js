@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 /**
  * @class Article
@@ -21,8 +22,11 @@ class Article extends React.Component {
 	render() {
 		return (
 			<article>
-				<h1>hello this is the article</h1>
-				<p>Also lets read a bit</p>
+				<Link to="/" title="Return">
+					Return Home
+				</Link>
+				<h1>hello this is the title</h1>
+				<p>More text content</p>
 			</article>
 		);
 	}
