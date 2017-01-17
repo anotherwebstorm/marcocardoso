@@ -25,8 +25,8 @@ class Article extends React.Component {
 				<Link to="/" title="Return">
 					Return Home
 				</Link>
-				<h1>hello this is the title</h1>
-				<p>More text content</p>
+				<h1>{this.props.title}</h1>
+				<p>{this.props.content}</p>
 			</article>
 		);
 	}
@@ -34,3 +34,8 @@ class Article extends React.Component {
 }
 
 export default Article;
+
+Article.propTypes = {
+	title: React.PropTypes.string,
+	content: React.PropTypes.string
+};

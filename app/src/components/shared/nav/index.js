@@ -15,6 +15,25 @@ class Nav extends React.Component {
 
 	/**
 	 * @description
+	 * Returns the main navigation links
+	 *
+	 * @return {Array}
+	 */
+	getLinks() {
+		const navItems = [
+			{ id: 1, title: 'About Me', slug: 'about-me' },
+			{ id: 2, title: 'Highlighted Project', slug: 'highlighted-project' }
+		];
+
+		return navItems.map(navItem =>
+			<Link key={navItem.id} to={navItem.slug} activeClassName="active">
+				{navItem.title}
+			</Link>
+		);
+	}
+
+	/**
+	 * @description
 	 * Component Method
 	 * Renders a component
 	 *
@@ -23,13 +42,7 @@ class Nav extends React.Component {
 	render() {
 		return (
 			<nav className="mainnav">
-				<Link to="/" title="Highlighted Project">
-					Highlighted Project
-				</Link>
-				<br />
-				<Link to="/" title="About Me">
-					About Me
-				</Link>
+				{this.getLinks()}
 			</nav>
 		);
 	}

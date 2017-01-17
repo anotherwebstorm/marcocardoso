@@ -21,7 +21,10 @@ class Home extends React.Component {
 	 */
 	render() {
 		return (
-			<Article />
+			<Article
+				title="Welcome to my site"
+				content="More text content"
+			/>
 		);
 	}
 
