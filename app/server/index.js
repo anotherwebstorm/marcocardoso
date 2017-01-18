@@ -1,16 +1,16 @@
 import Express from 'express';
-import {WebController} from "./controllers/WebController";
-import {ErrorController} from "./controllers/ErrorController";
+import { WebController } from './controllers/WebController';
+import { ErrorController } from './controllers/ErrorController';
 
-let server = new Express();
+const server = new Express();
 const port = 3001;
 
 server.use(Express.static('dist/assets'));
 
-server.set("views", "dist/assets/views");
-server.set("view engine", "ejs");
+server.set('views', 'dist/assets/views');
+server.set('view engine', 'ejs');
 
-server.get("*", ::(new WebController()).webAction);
+server.get('*', ::(new WebController()).webAction);
 server.use(::(new ErrorController()).errorAction);
 
 server.listen(port);
