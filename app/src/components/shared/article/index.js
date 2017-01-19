@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import Page from '../helpers/page';
+import ContentFetch from '../helpers/contentfetch';
 
 /**
  * @class Article
@@ -33,22 +33,38 @@ class Article extends React.Component {
 	 */
 	componentWillMount() {
 		if (typeof this.props.params !== 'undefined') {
-			const page = new Page();
-			page
-				.getPage(this.props.params.slug)
-				.then((response) => {
-					this.setState({
-						articleContent: {
-							title: response.title,
-							content: response.content
-						}
-					});
-				});
+			this.fetchArticleData(this.props.params.slug);
 		}
 	}
 
+	/**
+	 * @description
+	 * update the state depending on the existing and upcoming props
+	 *
+	 * @param {object} nextProps
+	 */
 	componentWillReceiveProps(nextProps) {
-		console.log(nextProps !== this.props);
+		// if (this.props === nextProps) {
+		// 	this.fetchArticleData(this.props.params.slug);
+		// }
+	}
+
+	/**
+	 *
+	 * @param {string} slug
+	 */
+	fetchArticleData(slug) {
+		const contentFetch = new ContentFetch();
+		contentFetch
+			.getPageContent(slug)
+			.then((response) => {
+				this.setState({
+					articleContent: {
+						title: response.title,
+						content: response.content
+					}
+				});
+			});
 	}
 
 	/**
@@ -63,7 +79,10 @@ class Article extends React.Component {
 			<article>
 				<Link to="/" title="Return"> Return Home </Link>
 				<h1>{this.state.articleContent.title}</h1>
-				<div className="articlecontent" dangerouslySetInnerHTML={{ __html: this.state.articleContent.content }} />
+				<div
+					className="articlecontent"
+					dangerouslySetInnerHTML={{ __html: this.state.articleContent.content }}
+				/>
 			</article>
 		);
 	}

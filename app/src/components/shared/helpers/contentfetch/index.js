@@ -4,7 +4,7 @@ import axios from 'axios';
  * @description
  * Class that controls the RESTFUL Methods to fetch the data for the pages
  */
-class Page {
+class ContentFetch {
 
 	/**
 	 * @description
@@ -12,7 +12,7 @@ class Page {
 	 *
 	 * @param {string} slug - The identifier of the page
 	 */
-	getPage(slug) {
+	getPageContent(slug) {
 		return axios
 			.get(`https://cosmicjs.com/v1/marcocardoso/object/${slug}`)
 			.then((response) => {
@@ -24,4 +24,4 @@ class Page {
 	}
 }
 
-export default Page;
+export default ContentFetch;
