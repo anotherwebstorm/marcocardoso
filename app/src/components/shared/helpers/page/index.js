@@ -13,15 +13,15 @@ class Page {
 	 * @param {string} slug - The identifier of the page
 	 */
 	getPage(slug) {
-		axios.get(`https://cosmicjs.com/v1/marcocardoso/object/${slug}`)
+		return axios
+			.get(`https://cosmicjs.com/v1/marcocardoso/object/${slug}`)
 			.then((response) => {
-				console.log(response);
+				return response.data.object;
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	}
-
 }
 
 export default Page;

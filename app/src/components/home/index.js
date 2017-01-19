@@ -1,5 +1,4 @@
 import React from 'react';
-import Article from '../shared/article';
 
 /**
  * @class Home
@@ -21,10 +20,7 @@ class Home extends React.Component {
 	 */
 	render() {
 		return (
-			<Article
-				title="Welcome to my site"
-				content="More text content"
-			/>
+			<h1>Welcome</h1>
 		);
 	}
 
