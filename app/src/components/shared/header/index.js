@@ -27,7 +27,7 @@ class Header extends React.Component {
 				<Link to="/" title="Marco Cardoso - Frontend Developer">
 					<span>Marco Cardoso</span>
 					<br />
-					<span className="subtitle">Frontend Developer</span>
+					<span className="subtitle">Lead Frontend Developer</span>
 				</Link>
 			</header>
 		);

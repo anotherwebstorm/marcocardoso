@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
-import ContentFetch from '../helpers/contentfetch';
+import Fetcher from '../../../utils/fetcher';
 
 /**
  * @class Article
@@ -20,7 +19,6 @@ class Article extends React.Component {
 	 */
 	constructor() {
 		super();
-
 		this.state = {
 			showReturn: false,
 			articleContent: {}
@@ -39,14 +37,14 @@ class Article extends React.Component {
 
 	/**
 	 * @description
-	 * update the state depending on the existing and upcoming props
+	 * update the state depending on the previous and upcoming props
 	 *
 	 * @param {object} nextProps
 	 */
 	componentWillReceiveProps(nextProps) {
-		// if (this.props === nextProps) {
-		// 	this.fetchArticleData(this.props.params.slug);
-		// }
+		if (this.props.params.slug !== nextProps.params.slug) {
+			this.fetchArticleData(nextProps.params.slug);
+		}
 	}
 
 	/**
@@ -54,9 +52,9 @@ class Article extends React.Component {
 	 * @param {string} slug
 	 */
 	fetchArticleData(slug) {
-		const contentFetch = new ContentFetch();
+		const contentFetch = new Fetcher();
 		contentFetch
-			.getPageContent(slug)
+			.getArticleContent(slug)
 			.then((response) => {
 				this.setState({
 					articleContent: {
