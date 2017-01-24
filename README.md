@@ -19,6 +19,8 @@ For development setup run
 
 `npm i`
 
+`npm install pm2@latest -g`
+
 Check the package.json scripts for further understanding. It should be quite clear.
 
 

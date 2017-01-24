@@ -4,6 +4,7 @@
   "description": "the personal website of marco cardoso",
   "main": "./dist/server.js",
   "dependencies": {
+    "axios": "^0.15.3",
     "bourbon": "^4.2.7",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
@@ -40,11 +41,14 @@
     "webpack": "^1.13.3"
   },
   "scripts": {
-		"watch-assets": "gulp watch-assets",
-		"build-assets": "gulp build-assets",
-    "build-server": "webpack --config webpack.server.babel.js --watch",
-    "build-client": "webpack --config webpack.client.babel.js --watch",
-    "start-server": "node ./dist/server.js"
+    "watch-assets": "gulp watch-assets",
+    "watch-server": "webpack --config webpack.server.babel.js --watch",
+    "watch-client": "webpack --config webpack.client.babel.js --watch",
+    "build-assets": "gulp build-assets",
+    "build-server": "webpack --config webpack.server.babel.js",
+    "build-client": "webpack --config webpack.client.babel.js",
+    "build": "npm run build-assets & npm run build-server & npm run build-client",
+    "start-server": "pm2 start ./dist/server.js --name marcocardosoweb & pm2 monit"
   },
   "author": "Marco Cardoso <hello@anotherwebstorm.com> (http://anotherwebstorm.com)",
   "license": "ISC"

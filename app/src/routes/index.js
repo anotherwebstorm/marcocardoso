@@ -4,6 +4,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import Layout from '../components';
 import Home from '../components/home';
 import NotFound from '../components/notfound';
+import Article from '../components/shared/article';
 
 /**
  * @description
@@ -18,6 +19,7 @@ export default function routes(history) {
 		<Router history={history}>
 			<Route path="/" component={Layout}>
 				<Route path="404" component={NotFound} />
+				<Route path="/:slug" component={Article} />
 				<Route path="**" component={NotFound} />
 				<IndexRoute component={Home} />
 			</Route>
