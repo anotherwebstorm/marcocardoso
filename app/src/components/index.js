@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Aside from './shared/aside';
 import Footer from './shared/footer';
 
@@ -11,7 +11,7 @@ import Footer from './shared/footer';
  * @example
  * <Layout />
  */
-class Layout extends React.Component {
+class Layout extends Component {
 
 	/**
 	 * @description
@@ -37,5 +37,5 @@ class Layout extends React.Component {
 export default Layout;
 
 Layout.propTypes = {
-	children: React.PropTypes.node
+	children: PropTypes.node
 };

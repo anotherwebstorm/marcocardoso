@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 /**
@@ -12,7 +12,7 @@ import { Link } from 'react-router';
  * @example
  * <Header />
  */
-class Header extends React.Component {
+class Header extends Component {
 
 	/**
 	 * @description

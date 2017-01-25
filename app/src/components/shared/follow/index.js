@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 /**
@@ -11,7 +11,7 @@ import { Link } from 'react-router';
  * @example
  * <Follow />
  */
-class Follow extends React.Component {
+class Follow extends Component {
 
 	/**
 	 * @description

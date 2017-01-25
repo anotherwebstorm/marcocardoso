@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 /**
  * @class Footer
@@ -9,7 +9,7 @@ import React from 'react';
  * @example
  * <Footer />
  */
-class Footer extends React.Component {
+class Footer extends Component {
 
 	/**
 	 * @description

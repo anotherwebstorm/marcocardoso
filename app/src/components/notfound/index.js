@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 /**
@@ -10,7 +10,7 @@ import { Link } from 'react-router';
  * @example
  * <NotFound />
  */
-class NotFound extends React.Component {
+class NotFound extends Component {
 
 	/**
 	 * @description
