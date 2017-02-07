@@ -12,6 +12,10 @@
 	<div class="app__wrapper"><%- htmlBody %></div>
 </div>
 
+<script type="text/javascript" charset="utf-8">
+	window.__REDUX_STATE__ = '<%= reduxState %>';
+</script>
+
 <% scriptSrc.forEach(function(src){ %>
 	<script src="<%= src %>"></script>
 <% }) %>

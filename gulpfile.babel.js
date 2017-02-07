@@ -34,7 +34,7 @@ const sassOptions = {
  * [DEL ASSETS] Deletes all the assets folder
  */
 gulp.task('del-assets', () => {
-	del([
+	return del([
 		`${paths.DIST_ASSETS_DIR}/css`,
 		`${paths.DIST_ASSETS_DIR}/fonts`,
 		`${paths.DIST_ASSETS_DIR}/img`,
@@ -47,7 +47,7 @@ gulp.task('del-assets', () => {
  * [STYLES LINT TASK] - Checks if your sass/scss files are ok.
  */
 gulp.task('styles-lint', () => {
-	gulp.src(`${paths.SCSS_SRC_DIR}/**/*.scss`)
+	return gulp.src(`${paths.SCSS_SRC_DIR}/**/*.scss`)
 		.pipe(sassLint({
 			configFile: './.sass-lint.yml',
 			cacheConfig: true,
@@ -61,7 +61,7 @@ gulp.task('styles-lint', () => {
  * [STYLES TASK] - Compiles all the scss into the dist assets folder
  */
 gulp.task('styles', () => {
-	gulp.src(`${paths.SCSS_SRC_DIR}/app.scss`)
+	return gulp.src(`${paths.SCSS_SRC_DIR}/app.scss`)
 		.pipe(sassGlob())
 		.pipe(sass.sync(Object.assign({
 			outputStyle: 'expanded'
@@ -77,7 +77,7 @@ gulp.task('styles', () => {
  * [SERVER VIEWS] - generate all server views to the dist folder
  */
 gulp.task('server-views', () => {
-	gulp.src(`${paths.VIEWS_SRC_DIR}/**/**`)
+	return gulp.src(`${paths.VIEWS_SRC_DIR}/**/**`)
 		.on('error', emitError)
 		.pipe(gulp.dest(`${paths.DIST_ASSETS_DIR}/views`));
 });
