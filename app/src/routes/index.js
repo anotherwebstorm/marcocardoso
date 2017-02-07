@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
-
 import Layout from '../components';
 import Home from '../components/home';
 import NotFound from '../components/notfound';

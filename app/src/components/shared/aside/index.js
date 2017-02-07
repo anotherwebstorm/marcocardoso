@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Nav from '../nav';
 import Header from '../header';
 import Follow from '../follow';
@@ -12,7 +12,7 @@ import Follow from '../follow';
  * @example
  * <Aside />
  */
-class Aside extends React.Component {
+class Aside extends Component {
 
 	/**
 	 * @description

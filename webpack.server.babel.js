@@ -48,10 +48,7 @@ module.exports = {
 			{
 				test: paths.APP_SRC_DIR,
 				exclude: /node_modules/,
-				loader: 'babel',
-				query: {
-					presets: ['react', 'es2015', 'stage-0']
-				}
+				loader: 'babel-loader',
 			}
 		]
 	},

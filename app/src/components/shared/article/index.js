@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import Fetcher from '../../../utils/fetcher';
+import { connect } from 'react-redux';
+import { getArticleData } from '../../../state/actions/getarticle';
 
 /**
  * @class Article
@@ -11,18 +12,30 @@ import Fetcher from '../../../utils/fetcher';
  * @example
  * <Article />
  */
-class Article extends React.Component {
+class Article extends Component {
+
+	static propTypes = {
+		params: PropTypes.shape({
+			slug: PropTypes.string
+		}),
+		article: PropTypes.object,
+		getTheArticle: PropTypes.func
+	};
+
+	static defaultProps = {};
+
+	// server actions that are fired before the page is rendered
+	static need = [
+		getArticleData
+	];
 
 	/**
-	 * @description
-	 * Initial Constructor
+	 * @constructor
+	 *
+	 * @param {Object} props
 	 */
-	constructor() {
-		super();
-		this.state = {
-			showReturn: false,
-			articleContent: {}
-		};
+	constructor(props) {
+		super(props);
 	}
 
 	/**
@@ -31,7 +44,7 @@ class Article extends React.Component {
 	 */
 	componentWillMount() {
 		if (typeof this.props.params !== 'undefined') {
-			this.fetchArticleData(this.props.params.slug);
+			this.props.getTheArticle(this.props.params.slug);
 		}
 	}
 
@@ -43,26 +56,8 @@ class Article extends React.Component {
 	 */
 	componentWillReceiveProps(nextProps) {
 		if (this.props.params.slug !== nextProps.params.slug) {
-			this.fetchArticleData(nextProps.params.slug);
+			this.props.getTheArticle(nextProps.params.slug);
 		}
-	}
-
-	/**
-	 *
-	 * @param {string} slug
-	 */
-	fetchArticleData(slug) {
-		const contentFetch = new Fetcher();
-		contentFetch
-			.getArticleContent(slug)
-			.then((response) => {
-				this.setState({
-					articleContent: {
-						title: response.title,
-						content: response.content
-					}
-				});
-			});
 	}
 
 	/**
@@ -76,10 +71,10 @@ class Article extends React.Component {
 		return (
 			<article>
 				<Link to="/" title="Return"> Return Home </Link>
-				<h1>{this.state.articleContent.title}</h1>
+				<h1>{this.props.article.title}</h1>
 				<div
 					className="articlecontent"
-					dangerouslySetInnerHTML={{ __html: this.state.articleContent.content }}
+					dangerouslySetInnerHTML={{ __html: this.props.article.content }}
 				/>
 			</article>
 		);
@@ -87,10 +82,21 @@ class Article extends React.Component {
 
 }
 
-export default Article;
-
-Article.propTypes = {
-	params: React.PropTypes.shape({
-		slug: React.PropTypes.string
-	})
+// Extract the props we want to connect from the current store state
+const mapStateToProps = (state) => {
+	return {
+		article: state.articleState
+	};
 };
+
+// Add dispatchers to the component props for fetching the data _client side_
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getTheArticle: (urlParams) => {
+			dispatch(getArticleData(urlParams));
+		}
+	};
+};
+
+// Connect this component to the redux store
+export default connect(mapStateToProps, mapDispatchToProps)(Article);
